@@ -1,0 +1,37 @@
+# Pubkey only w/ google-authenticator 2fac
+# auth required pam_google_authenticator.so
+
+Protocol 2
+Subsystem sftp internal-sftp
+HostKey /etc/ssh/ssh_host_ed25519_key
+Port 22
+
+Compression no
+AddressFamily any
+TCPKeepAlive no
+ClientAliveCountMax 10
+ClientAliveInterval 30
+
+LogLevel VERBOSE
+DebianBanner no
+PrintLastLog no
+PrintMotd no
+
+PermitRootLogin no
+AllowGroups sudo
+MaxAuthTries 2
+UsePAM yes
+UseDNS no
+
+AuthenticationMethods publickey,keyboard-interactive
+PubkeyAuthentication yes
+ChallengeResponseAuthentication yes
+KbdInteractiveAuthentication yes
+PasswordAuthentication no
+
+AllowStreamLocalForwarding yes
+GatewayPorts clientspecified
+AllowTcpForwarding yes
+X11Forwarding yes
+PermitTunnel yes
+PermitOpen any

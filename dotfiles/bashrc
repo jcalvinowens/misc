@@ -1,0 +1,6 @@
+export EDITOR="/usr/bin/vim"
+export PS1='{$(echo ${PIPESTATUS[@]})}[\u@\h \w] '
+
+alias grep="grep --color=auto"
+alias ls="ls --color=auto"
+alias python="python3"
