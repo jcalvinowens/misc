@@ -1,0 +1,51 @@
+#!/bin/bash
+
+BUILD_SCR_DIR="$(dirname $(readlink -f ${0}))"
+NRCPUS="$(grep -c processor /proc/cpuinfo)"
+MAKEOPTS="-j$[$NRCPUS * 2]"
+OUTPUTREDIR="."
+
+while getopts mO:C:M: i; do
+	case $i in
+		m) DOCONFIG=1 ;;
+		O) OUTPUTREDIR="$OPTARG"; MAKEOPTS="${MAKEOPTS} O=$OPTARG" ;;
+		C) MAKEOPTS="${MAKEOPTS} CC=${OPTARG} HOSTCC=${OPTARG}" ;;
+		M) MAKEOPTS="${MAKEOPTS} ${OPTARG}" ;;
+	esac
+done
+
+if [ ! -e "MAINTAINERS" ]; then
+	echo "Run me in the kernel source tree"
+	exit 1
+fi
+
+if [ ! -e $BUILD_SCR_DIR/config-$HOSTNAME ]; then
+	echo "Can't find .config for $HOSTNAME"
+	exit 1
+fi
+
+if [ ! -e $OUTPUTREDIR/.config ]; then
+	echo "Copying in .config for host \"$HOSTNAME\"..."
+	cp -f $BUILD_SCR_DIR/config-$HOSTNAME $OUTPUTREDIR/.config
+fi
+
+if [ ! -z "$DOCONFIG" ]; then
+	make menuconfig $MAKEOPTS
+	cp -v $OUTPUTREDIR/.config $BUILD_SCR_DIR/config-$HOSTNAME
+	exit 0
+fi
+
+make oldconfig $MAKEOPTS
+make kernelrelease $MAKEOPTS
+version=`make -s $MAKEOPTS kernelrelease | grep -R '[0-9]\..*' -`
+time make -s $MAKEOPTS tar-pkg
+
+if [ ! -e $OUTPUTREDIR/linux-${version}-x86.tar ]; then
+	exit 1
+fi
+
+cp -f $OUTPUTREDIR/.config $BUILD_SCR_DIR/config-$HOSTNAME
+echo -n "Press enter to install..."
+read
+sudo -p "Enter password for sudo: " \
+	${BUILD_SCR_DIR}/install-kernel $OUTPUTREDIR/linux-${version}-x86.tar

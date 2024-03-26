@@ -1,0 +1,30 @@
+#!/bin/bash -e
+
+if [ "$(whoami)" != "root" ]; then
+	echo "Run me as root"
+	exit 1
+fi
+
+tarpkg="${1}"
+if [ -z "${tarpkg}" ]; then
+	echo "Usage: ./install-kernel <tar-pkg>"
+	exit 1
+fi
+
+tmpdir="$(mktemp -d)"
+version=$(basename $(tar tf ${tarpkg} | grep vmlinux-))
+version=${version#vmlinux-}
+moddir="/lib/modules/${version}"
+tar xf ${tarpkg} -C ${tmpdir}
+mkdir -p ${moddir}
+mv ${tmpdir}/boot/vmlinux-${version} ${moddir}/
+mv ${tmpdir}/${moddir}/modules.builtin ${moddir}/
+mv ${tmpdir}/${moddir}/modules.builtin.modinfo ${moddir}/
+mv ${tmpdir}/boot/System.map-${version} /boot/
+mv ${tmpdir}/boot/config-${version} /boot/
+mv ${tmpdir}/boot/vmlinuz-${version} /boot/
+ln -f -s ${moddir}/vmlinux-${version} /boot/vmlinux-${version}
+rm -r ${tmpdir}
+update-initramfs -c -k ${version}
+update-grub
+sync
