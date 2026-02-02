@@ -1,0 +1,33 @@
+export EDITOR="/usr/bin/vim"
+
+alias grep="grep --color=auto"
+alias ls="ls --color=auto"
+alias python="python3"
+alias g="git grep"
+
+get_taint_string () {
+	nr="$(cat /proc/sys/kernel/tainted)"
+	[[ $nr -eq 0 ]] || echo -n "("
+	[[ $[nr & (1 <<  0)] -eq 0 ]] || echo -n "P" # proprietary module
+	[[ $[nr & (1 <<  1)] -eq 0 ]] || echo -n "F" # module force loaded
+	[[ $[nr & (1 <<  2)] -eq 0 ]] || echo -n "S" # out of spec system
+	[[ $[nr & (1 <<  3)] -eq 0 ]] || echo -n "R" # module force unloaded
+	[[ $[nr & (1 <<  4)] -eq 0 ]] || echo -n "M" # machine check exception
+	[[ $[nr & (1 <<  5)] -eq 0 ]] || echo -n "B" # bad page
+	[[ $[nr & (1 <<  6)] -eq 0 ]] || echo -n "U" # userspace taint
+	[[ $[nr & (1 <<  7)] -eq 0 ]] || echo -n "D" # kernel died
+	[[ $[nr & (1 <<  8)] -eq 0 ]] || echo -n "A" # acpi overridden
+	[[ $[nr & (1 <<  9)] -eq 0 ]] || echo -n "W" # kernel warning
+	[[ $[nr & (1 << 10)] -eq 0 ]] || echo -n "C" # staging driver loaded
+	[[ $[nr & (1 << 11)] -eq 0 ]] || echo -n "I" # firmware bug detected
+	[[ $[nr & (1 << 12)] -eq 0 ]] || echo -n "O" # out of tree module loaded
+	[[ $[nr & (1 << 13)] -eq 0 ]] || echo -n "E" # unsigned module loaded
+	[[ $[nr & (1 << 14)] -eq 0 ]] || echo -n "L" # kernel softlockup
+	[[ $[nr & (1 << 15)] -eq 0 ]] || echo -n "K" # kernel has livepatch
+	[[ $[nr & (1 << 16)] -eq 0 ]] || echo -n "X" # aux distro taint
+	[[ $[nr & (1 << 17)] -eq 0 ]] || echo -n "T" # kernel has randstruct
+	[[ $[nr & (1 << 18)] -eq 0 ]] || echo -n "N" # kernel tests have run
+	[[ $nr -eq 0 ]] || echo -n '!)'
+}
+
+export PS1='$(get_taint_string){$(echo ${PIPESTATUS[@]})}[\u@\h \w] '

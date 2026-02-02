@@ -1,0 +1,137 @@
+% resume.tex: My current resume
+% Calvin Owens <calvin@wbinvd.org>
+%
+% To the extent possible under law, I waive all copyright and related or
+% neighboring rights. You should have received a copy of the CC0 license along
+% with this work. If not, see http://creativecommons.org/publicdomain/zero/1.0
+%
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+% ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+% WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+\documentclass[11pt]{article}
+\topmargin=-0.75in
+\oddsidemargin=-0.75in
+\evensidemargin=-0.75in
+\textwidth=7.75in
+\marginparwidth=0.5in
+\headheight=0pt
+\headsep=0pt
+\textheight=10.5in
+\pagenumbering{gobble}
+
+\usepackage{multicol}
+\usepackage{enumitem}
+
+\begin{document}
+
+\centerline{{\Huge \sc Calvin Owens}}
+\centerline{P.O. Box 3465, Redwood City, CA 94064}
+\centerline{+12143647857 \textbullet \hspace{1pt} calvin@wbinvd.org}
+\centerline{www.github.com/jcalvinowens}
+
+\noindent
+\hrulefill
+
+\noindent\centerline{\bf wbinvd.org \hfill 2024 - Now}
+Self-owned contracting business \\
+
+\noindent\centerline{\bf Nuvia / Qualcomm \hfill 2022 - 2023}
+Staff Software Engineer, Linux Kernel, OS Team \\
+
+\noindent\centerline{\bf Cambridge Mobile Telematics \hfill 2021 - 2022}
+Principal Software Engineer, IoT Group \\
+
+\noindent\centerline{\bf Facebook \hfill 2014 - 2020}
+Production Engineer, Linux Kernel
+
+\noindent
+\hrulefill
+
+\centerline{\underline{\bf Education}}
+\smallskip
+\noindent {\bf Southern Methodist University, Dallas, TX} \hfill {\bf 2010 - 2014}
+
+\smallskip
+
+\noindent\centerline{\hfill \textbullet \hspace{1pt} Computer Science \hfill \textbullet \hspace{1pt} Clarinet Performance \hfill }
+
+\noindent
+\hrulefill
+
+\begin{multicols}{2}
+
+\centerline{\underline{\bf Selected Projects}}
+
+\bigskip
+
+\noindent {\bf Linux kernel contributions} \hfill {\bf 2010 -}
+\begin{itemize}[leftmargin=2em]
+\itemsep 0em
+	\item Dozens of upstream bugfixes across every subsystem
+	\item Extensive experience debugging/patching kernel bugs
+	\item Upstream patches: https://wbinvd.org/linux/
+\end{itemize}
+
+\noindent {\bf netconsd} \hfill {\bf 2015 - 2017}
+\begin{itemize}[leftmargin=2em]
+\itemsep 0em
+	\item https://github.com/facebook/netconsd
+	\item Backend for processing kernel logs at Facebook
+	\item Proccesses 1B+ logs per day from 1M+ machines
+	\item Replaced 100+ backend servers with fewer than 10
+	\item Talk: "Monitoring the Linux Kernel at Facebook", LinuxCon 2016
+\end{itemize}
+
+\noindent {\bf Interviewing at Facebook} \hfill {\bf 2016 - 2020}
+\begin{itemize}[leftmargin=2em]
+\itemsep 0em
+	\item Conducted 400+ technical interviews
+	\item Trained 20+ new interviewers
+	\item Taught a recurring class on architecture interviews
+\end{itemize}
+
+\vfill\null
+\columnbreak
+
+\centerline{\underline{\bf Personal}}
+
+\bigskip
+
+\noindent {\bf Open hardware projects} \hfill {\bf 2023 -}
+\begin{itemize}[leftmargin=2em]
+\itemsep 0em
+	\item https://github.com/jcalvinowens/tempsensor
+	\item https://github.com/jcalvinowens/ledboard
+	\item https://github.com/jcalvinowens/wallclock
+\end{itemize}
+
+\noindent {\bf ircam-viewer} \hfill {\bf 2023 -}
+\begin{itemize}[leftmargin=2em]
+\itemsep 0em
+	\item https://github.com/jcalvinowens/ircam-viewer
+	\item https://github.com/jcalvinowens/meta-ircam-viewer
+	\item Minimalist GUI for viewing USB infrared cameras
+\end{itemize}
+
+\noindent {\bf asmhttpd} \hfill {\bf 2010 -}
+\begin{itemize}[leftmargin=2em]
+\itemsep 0em
+	\item https://github.com/jcalvinowens/asmhttpd
+	\item HTTP webserver written in x86-64 assembly
+	\item Uses only 4KB of RAM
+\end{itemize}
+
+\noindent {\bf Ham Radio} \hfill {\bf 2018 -}
+\begin{itemize}[leftmargin=2em]
+\itemsep 0em
+	\item Amateur Extra licensee: W5CAL
+	\item 500+ contacts in 40+ countries on HF
+	\item Focus on antenna design and digital modes
+\end{itemize}
+
+\end{multicols}
+\end{document}

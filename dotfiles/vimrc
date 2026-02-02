@@ -1,0 +1,26 @@
+set nocompatible
+set hlsearch
+set ignorecase
+set smartcase
+set autoindent
+set wildmenu
+set backspace=indent,eol,start
+set laststatus=2
+set cmdheight=1
+set showcmd
+set number
+set ruler
+
+set statusline={%n}\ %y%m%r\ %-45.45F\ %=L%04.l/%04.L\ %P\ C%03.v
+
+syntax on
+set colorcolumn=81
+hi ColorColumn cterm=reverse ctermbg=white ctermfg=darkgrey
+
+hi LineNr ctermbg=black ctermfg=darkblue
+hi StatusLine ctermbg=white ctermfg=blue
+
+hi trailing_whitespace ctermbg=magenta ctermfg=magenta
+match trailing_whitespace /\(\s\+$\|\ \t\)/
+
+set viminfo='20,<1000,s1000
